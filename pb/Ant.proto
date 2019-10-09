@@ -1,0 +1,27 @@
+syntax = "proto3";
+package pb;
+
+//初始化
+message EPAntInitRequest {
+    string antkey    = 1;
+}
+
+message EPAntInitResponse {
+}
+
+//天线状态
+message EPAntStateRequest {
+    string antkey    = 1;
+    string State    = 2;
+}
+
+message EPAntStateResponse {
+}
+
+
+//电子车牌信息
+message EPAntReadRequest{
+	string Msg      =1;
+}
+message EPAntReadResponse {
+}

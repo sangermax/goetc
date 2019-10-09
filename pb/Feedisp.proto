@@ -1,0 +1,33 @@
+//protoc --go_out=plugins=grpc:. Feedisp.proto
+
+syntax = "proto3";
+package pb;
+
+//状态
+message FeedispStateReport{
+    string FeedispState = 1;
+    string AlarmState = 2;
+}
+
+message FeedispShowRequest {
+    string Line1 =1;
+    string Line2 =2;
+    string Line3 =3;
+    string Color1 =4;
+    string Color2 =5;
+    string Color3 =6;
+}
+
+message FeedispShowResponse {
+	
+}
+
+message FeedispAlarmRequest {
+    string AlarmValue  =1;
+    string AlarmTm = 2;
+}
+
+message FeedispAlarmResponse {
+}
+
+

@@ -1,0 +1,29 @@
+//protoc --go_out=plugins=grpc:. Printer.proto
+
+syntax = "proto3";
+package pb;
+
+//状态
+message PrinterStateReport{
+    string UpState = 1;
+    string DnState = 2;
+}
+
+//出票
+message PrinterContent {
+    string Aligyntype   =1;
+    string Fontsize     =2;
+    string Content      =3;
+}
+
+message PrinterTicketRequest {
+    string WorkStation  =1;
+    string LineNums =2;
+    repeated PrinterContent  PrintRsds =3;
+
+}
+
+message PrinterTicketResponse {
+	
+}
+

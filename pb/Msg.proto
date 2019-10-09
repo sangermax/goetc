@@ -1,0 +1,17 @@
+//protoc --go_out=plugins=grpc:. Scan.proto
+
+syntax = "proto3";
+package pb;
+
+message Message {
+	string  type    = 1;  //消息类型
+    string  no      = 2;   //消息序号
+	bytes  data     = 3;  //消息内容
+
+    string resultvalue  = 4;//返回消息结果
+    string resultdes    = 5;    
+}
+
+service GrpcMsg {
+    rpc Communite(stream Message) returns (stream Message){}
+}

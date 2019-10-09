@@ -1,0 +1,27 @@
+//protoc --go_out=plugins=grpc:. IO.proto
+
+syntax = "proto3";
+package pb;
+
+//状态
+message IOStateReport{
+    string State1 = 1;
+    string State2 = 2;
+    string State3 = 3;
+    string State4 = 4;
+    string State5 = 5;
+    string State6 = 6;
+    string State7 = 7;
+    string State8 = 8;
+}
+
+//IO控制指令
+message IOControlRequest {
+    string IONo     =1;
+    string IOControl    =2;
+}
+
+message IOControlResponse {
+	string IONo     =1;
+    string IOControl    =2;
+}

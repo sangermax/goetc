@@ -1,0 +1,194 @@
+//protoc --go_out=plugins=grpc:. grpcCloud.proto
+
+syntax = "proto3";
+package pb;
+
+import "Plate.proto";
+
+//初始化 laneKey这个值要保证在云路由上唯一
+message InitRequest {
+    string laneKey    = 1;
+}
+
+message InitResponse {
+}
+
+//计费
+message FeeRequest {
+    string vehplate = 1;
+    string vehclass = 2;
+    string entrystaid = 3;
+    string exitstaid = 4;
+    string flagstaid = 5;
+}
+
+message FeeResponse {
+    string toll = 1;
+}
+
+//车牌付校验
+message PlatePayCheckRequest {
+	string Vehplate =1;
+	string Vehclass =2;
+	string TID		=3;
+}
+
+message PlatePayCheckResponse {
+	string CheckResult  =1;
+	string Vehplate =2;
+	string Vehclass =3;
+}
+
+//请求支付
+message PayRequest {
+	string Operatorid   =1;
+	string Shiftid      =2;
+	string TransDate    =3;
+	string Paytype      =4;
+	string PayCode      =5;
+	string Vehplate     =6;
+	string Toll         =7;
+	string Transtime    =8;
+}
+
+//支付应答结果
+message PayResponse {
+	string Paytype   =1;
+	string Paymethod =2;
+	string Goodsno   =3;
+	string Tradeno   =4;
+	string Toll      =5;
+	string Paytime   =6;
+}
+
+//出口交易数据
+message ExitFlowRequest{
+	string Vehclass      =1;
+	string Vehplate      =2;
+
+	string ExitNetwork   =3;
+	string ExitStationid =4;
+	string ExitLandid    =5;
+	string ExitOperator  =6;
+	string ExitShiftdate =7;
+	string ExitShift     =8;
+
+	string Paytype       =9;
+	string Paymethod     =10;
+	string Payid         =11;
+	string Transtime     =12;
+	string Paytime       =13;
+	string Toll          =14;
+
+	string Goodsno     =15;
+	string Tradeno      =16;
+	string PrintFlag   =17;
+
+	string Termid      =18;
+	string Termno      =19;
+	string Tac         =20;
+
+	string CardTradeNo =21;
+	string CardId      =22;
+	string FlowNo 	   =23;
+
+	string TransFrom 	= 24;
+	string StationMode 	= 25;
+	string EntryNetwork = 26;
+	string EntryStationId 	= 27;
+	string EntryLaneId 	= 28;
+	string EntryOperator	= 29;
+	string EntryShift 	= 30;
+	string EntryTime 	= 31;
+	string FlagStationid 	= 32;
+	string FlagTime 	= 33;
+	string RegVehclass 	= 34;
+	string RegVehplate 	= 35;
+	string AntennaID 	= 36;
+	string TID 			= 37;
+	string VehColor 	= 38;
+	string TransMemo = 39;
+}
+
+message ExitFlowResponse {
+    string FlowNo     =1;
+}
+
+//出口图片数据
+message ExitImgAdds{
+	string ExitNetwork      =1;
+	string ExitStationid    =2;
+	string ExitLandid       =3;
+	string ExitOperator     =4;
+	string ExitShiftdate    =5;
+	string ExitShift        =6;
+	string Transtime        =7;
+	string FlowNo 			=8;
+}
+
+message ExitImgRequest {
+	ExitImgAdds AddsInfo=1;
+	RstVehRecognize RstVehPlateInfo=2;
+}
+
+message ExitImgResponse {
+    string FlowNo     =1;
+}
+
+//设备状态数据
+message DevStateRequest{
+	string ExitNetwork      =1;
+	string ExitStationid    =2;
+	string ExitLandid       =3;
+
+	string EquipmentDev     =4;
+	string PrinterDev1      =5;
+	string PrinterDev2      =6;
+	string PlateDev         =7;
+	string Coil1            =8;
+	string Coil2            =9;
+	string Scan1            =10;
+	string Scan2            =11;
+}
+
+//远程控制
+message ControlRequest{
+	string ExitNetwork      =1;
+	string ExitStationid    =2;
+	string ExitLandid       =3;
+	string Cmd              =4;
+}
+message ControlResponse {
+}
+
+//车辆通行信息
+message CarpathRequest{
+	string Vehclass      =1;
+	string Vehplate    =2;
+}
+message CarpathResponse {
+	string EntryNetwork 	=1;
+	string EntryStationId 	=2;
+	string EntryLaneId 		=3;
+	string EntryOperator 	=4;
+	string EntryShift 		=5;
+	string EntryTime 		=6;
+	string FlagStationid 	=7;
+	string HasCard 			=8; 
+}
+
+//自由流通行结果
+message ChkFreeflowRequest{
+	string msgbody      =1;
+}
+message ChkFreeflowResponse {
+	string msgbody      =1;
+}
+
+//自由流通行结果通知
+message NotifyFreeflowRequest{
+	string msgbody      =1;
+}
+message NotifyFreeflowResponse {
+	string msgbody      =1;
+}

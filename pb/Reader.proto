@@ -1,0 +1,13 @@
+//protoc --go_out=plugins=grpc:. Reader.proto
+
+syntax = "proto3";
+package pb;
+
+//根据不同的类型，解析不同的数据结构
+message ReaderDataRequest{
+	string Msg      =1;
+}
+
+message ReaderDataResponse {
+    string Msg      =1;
+}

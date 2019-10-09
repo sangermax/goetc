@@ -1,0 +1,142 @@
+//protoc --go_out=plugins=grpc:. Plate.proto
+
+syntax = "proto3";
+package pb;
+
+//状态
+message PlateStateReport{
+    string State = 1;
+}
+
+message ReqVehRecognize {
+}
+
+message RstVehRecognize {
+    Car VehicleInfo                     =1;
+	OtherVehicleInfo VehicleOtherInfo   =2;
+	TotalFaceInfo VehicleFaceInfo       =3;
+	Img VehicleImg                      =4;
+}
+
+message CarInfo {
+	string Lpn          =1;         //车牌号码
+	string LpnScore     =2;     //车牌分数
+	string LpnColor     =3;    //车牌颜色
+	string LpnposLeft   =4;  //车牌位置坐标left
+	string LpnposTop    =5;   //车牌位置坐标top
+	string LpnposRight  =6;  //车牌位置坐标right
+	string LpnposBottom =7; //车牌位置坐标bottom
+	string Color        =8;        //车身颜色
+	string ColorScore   =9;  //车身颜色分数
+	string Brand        =10;        //车辆品牌
+	string Brand0       =11;       //车辆品牌0
+	string Brand1       =12;       //车辆品牌1
+	string Brand2       =13;      //车辆品牌2
+	string Brand3       =14;      //车辆品牌3
+	string Vehtype      =15;     //车型
+	string VehClass     =16;    //车辆类型
+	string Type0        =17;       //车辆类型0
+	string Type1       =18;       //车辆类型1
+	string Type2        =19;       //车辆类型2
+	string Type3        =20;       //车辆类型3
+	string Subbrand     =21;     //车辆子品牌
+	string Subbrand0    =22;   //车辆子品牌0
+	string Subbrand1    =23;    //车辆子品牌1
+	string Subbrand2   =24;    //车辆子品牌2
+	string Subbrand3    =25;   //车辆子品牌3
+	string Year         =26;         //车辆年份
+	string Year0        =27;        //车辆年份0
+	string Year1        =28;        //车辆年份1
+	string Year2        =29;        //车辆年份2
+	string Year3        =30;        //车辆年份3
+	string BrandScore   =31;   //品牌分数
+	string BrandScore0  =32;  //品牌分数0
+	string BrandScore1  =33;  //品牌分数1
+	string BrandScore2  =34;  //品牌分数2
+	string BrandScore3  =35;  //品牌分数3
+	string Pose         =36;        //车辆整体位置
+	string CarposLeft   =37;  //车辆坐标left
+	string CarposTop    =38;    //车辆坐标top
+	string CarposRight  =39; //车辆坐标right
+	string CarposBottom =40; //车辆坐标bottom
+	string CarRectScore =41; //车辆位置分数
+	string ImgQuality   =42;  //车辆或车牌图像质量
+	string IDNumber     =43;    //Json文件唯一值标志
+}
+
+message CarFeature {
+	string GJ=1;  //挂件	开始字符为0表示无挂件，开始字符为1表示有挂件，’|’后跟挂件坐标（左上角坐标+右下角坐标），”|”后跟分数
+	string NJB=2; //年检标	开始字符为0表示无年检标，开始字符为m-n(n>0)表示有m到n个年检标，’|’后是整体坐标，”|”后跟分数
+	string TC=3;  //天窗	同GJ字段
+	string AQD=4; //安全带	开始字符0表示主驾驶安全带，’|’后0表示无，1表示有安全带，”|”后跟分数，’ ;’后1表示副驾驶安全带，’|’后0表示无，1表示有安全带，”|”后跟分数
+	string DDH=5;//开车打电话	同AQD字段
+	string ZYB=6;//遮阳板	开始字符0表示主驾驶位置，’|’后0表示无遮阳板，1表示有遮阳板，’|’后是遮阳板坐标，”|”后跟分数，副驾驶位置同理，以’;’分隔，如”0|1|’100,200,300,400’|95.0;1|0|’0,0,0,0’|95.0”表示主驾驶有遮阳板，并给出坐标，副驾驶无遮阳板
+	string CZH=7; //抽纸盒	开始字符0表示无纸巾盒，开始字符为n表示有n个纸巾盒，‘|’后是n个坐标，以’,’分隔，”|”后是n个分数
+	string CRZ=8; //出入证	同GJ字段
+	string XSB=9; //新手标	同GJ字段
+	string JSY=10; //驾驶员	同AQD字段
+	string LT=11;  //轮胎	同CZH字段
+	string CD =12;  //车灯	同CZH字段
+	string JSC=13; //驾驶窗	同CZH字段
+	string HSJ=14; //后视镜	同CZH字段
+	string XLJ=15; //行李架	同CZH字段
+
+}
+
+message TotalBike {
+	string BikeCount=1; //数量
+	repeated BikeInfo BikeRsds=2; //自行车信息
+
+}
+
+message BikeInfo {
+	string Posleft  =1;   //坐标left
+	string Postop    =2;   //坐标top
+	string Posright  =3;  //坐标right
+	string Posbottom =4; //坐标bottom
+	string Score     =5;    //得分
+
+}
+
+message TotalFaceInfo {
+	string FaceCount =1;
+	repeated FaceInfo FaceRsds=2;
+}
+
+message FaceInfo {
+	string FaceRectScore =1;  //人脸框检测得分
+	string FaceposLeft =2;  //人脸位置坐标left
+	string FaceposTop =3;  //人脸位置坐标top
+	string FaceposRight =4;   //人脸位置坐标right
+	string FaceposBottom  =5; //人脸位置坐标bottom
+	string FacekeyPoint1X =6; //人脸关键点1X坐标
+	string FacekeyPoint1Y =7;//人脸关键点1Y坐标
+	string FacekeyPoint2X =8; //人脸关键点2X坐标
+	string FacekeyPoint2Y =9; //人脸关键点2Y坐标
+	string FacekeyPoint3X =10;//人脸关键点3X坐标
+	string FacekeyPoint3Y  =11; //人脸关键点3Y坐标
+	string FacekeyPoint4X  =12; //人脸关键点4X坐标
+	string FacekeyPoint4Y  =13; //人脸关键点4Y坐标
+	string FacekeyPoint5X  =14; //人脸关键点5X坐标
+	string FacekeyPoint5Y  =15; //人脸关键点5X坐标
+	string FaceFeature    =16;   //人脸特征码
+
+}
+
+message Img {
+	string PlateImgBuffer =1; //车牌图片
+	string CarImgBuffer =2;  //车辆图片
+}
+
+message Car {
+	CarInfo CarBaseInfo =1;
+	CarFeature CarFeatureInfo =2;
+}
+
+message OtherVehicleInfo {
+	TotalBike TotalMotobikeInfo =1;
+	TotalBike  TotalTribikeInfo =2;
+	TotalBike     TotalBikeInfo =3;
+}
+
+

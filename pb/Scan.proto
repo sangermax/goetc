@@ -1,0 +1,32 @@
+//protoc --go_out=plugins=grpc:. Scan.proto
+
+syntax = "proto3";
+package pb;
+
+//状态
+message ScanStateReport{
+    string UpState = 1;
+    string DnState = 2;
+}
+
+//开启扫码
+message OpenScanRequest {
+    string WorkStation  =1;
+    //间隔打开扫码时长
+    string ScanSpanTm = 2;
+}
+
+message OpenScanResponse {
+    string Scanbar = 1;
+}
+
+//关闭扫码
+message CloseScanRequest {
+	string WorkStation  =1;
+}
+
+message CloseScanResponse {
+	
+}
+
+
